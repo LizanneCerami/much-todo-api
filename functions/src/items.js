@@ -6,11 +6,11 @@ export async function addNewItem(req, res) {
   const newItem = req.body
   await coll.add(newItem)
   // now return the whole updated list...
-  getAllItems(req,res)
+  getAllItems(req, res)
 }
 
 export async function getAllItems(req, res) {
   const itemsMessy = await coll.get()
-  const itemsClean = itemsMessy.docs.map(doc => ({ ...doc.data, id:doc.id }))
+  const itemsClean = itemsMessy.docs.map(doc => ({ ...doc.data(), id: doc.id }))
   res.send(itemsClean)
 }
